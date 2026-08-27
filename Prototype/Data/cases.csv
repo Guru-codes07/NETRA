@@ -1,0 +1,17 @@
+case_id,description,linked_person_ids,location
+CASE001,Theft of property reported at local market,"P009,P059,P005",Lake Peter
+CASE002,Dispute over land ownership escalated to violence,"P026,P006,P041,P040",Danieltown
+CASE003,Suspicious financial activity flagged by bank,"P070,P061,P033,P005,P025",Seanview
+CASE004,Vehicle theft reported near residential complex,"P046,P007,P043,P035",East Christopherchester
+CASE005,Assault case following altercation at public event,"P048,P056",Hawkinshaven
+CASE006,Fraudulent investment scheme complaint,"P057,P050,P044,P024,P064",Garcialand
+CASE007,Missing persons report,"P048,P067,P035,P011,P055",Angelamouth
+CASE008,Burglary reported in commercial district,"P056,P078",Smithchester
+CASE009,Cybercrime complaint regarding online scam,"P070,P038,P042",Maxwellside
+CASE010,Extortion complaint filed by local business owner,"P011,P042",New Adriana
+CASE011,Drug trafficking tip-off under investigation,"P040,P058,P078,P055",Jacksonview
+CASE012,Counterfeit currency circulation reported,"P057,P045,P058",Josephberg
+CASE013,Smuggling activity reported near border checkpost,"P046,P079",East Ryanchester
+CASE014,Kidnapping for ransom complaint,"P036,P008,P010,P052,P047",Toddland
+CASE015,Illegal arms possession tip-off,"P004,P019,P078",Johnathanbury
+CASE016,Complaint regarding suspicious group activity in residential area,"P057,P005,P017,P009,P031,P047",West Malik
