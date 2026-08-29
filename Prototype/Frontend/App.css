@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px;
+  background: #0B2A4A;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #B8CCE0;
+}
+
+.search-form {
+  display: flex;
+  gap: 6px;
+}
+
+.search-form input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  width: 220px;
+}
+
+.search-form button,
+.detect-btn {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  background: #0070C0;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.detect-btn:disabled {
+  background: #5a7fa0;
+  cursor: not-allowed;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 320px;
+  padding: 16px;
+  background: #F4F6F8;
+  overflow-y: auto;
+  border-right: 1px solid #DDE3E9;
+}
+
+.panel {
+  background: white;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid #E2E8EF;
+}
+
+.panel h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #0B2A4A;
+}
+
+.insight-panel {
+  background: #EAF3FC;
+  border-color: #0070C0;
+}
+
+.insight-headline {
+  font-weight: bold;
+  margin: 0 0 6px;
+}
+
+.insight-text {
+  font-size: 13px;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.insight-tag {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  color: #0070C0;
+  margin: 0;
+}
+
+.result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.result-list li {
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.result-list li:hover {
+  background: #EAF3FC;
+}
+
+.result-list li span {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.muted-panel {
+  color: #6b7280;
+  font-size: 13px;
+  background: transparent;
+  border: 1px dashed #C9D4DE;
+}
+
+.error-box {
+  background: #FCEAEA;
+  border: 1px solid #B03A2E;
+  color: #B03A2E;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.graph-area {
+  flex: 1;
+  position: relative;
+  padding: 12px;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
