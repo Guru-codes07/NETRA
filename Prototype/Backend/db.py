@@ -1,5 +1,8 @@
 """
+
+NETRA - Network entity tracking and relationship analysis.
 db.py — Neo4j driver connection for NETRA backend.
+
 
 Keeps a single shared driver instance for the whole FastAPI app,
 opened at startup and closed at shutdown (see main.py lifespan).
