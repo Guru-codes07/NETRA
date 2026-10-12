@@ -10,8 +10,10 @@ visualize it.
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
 from db import run_raw, run_query, close_driver
 from graph_utils import GraphAccumulator
+from llm import ask_question
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Driver is created lazily on first use (see db.get_driver),
@@ -158,3 +160,26 @@ def search_person(name: str = Query(..., min_length=1)):
     """
     results = run_query(query, {"name": name})
     return {"count": len(results), "results": results}
+
+
+class AskRequest(BaseModel):
+    """Body for POST /ask — a single natural-language investigator question."""
+    question: str = Field(..., min_length=1, max_length=500)
+
+
+@app.post("/ask")
+def ask(body: AskRequest):
+    """
+    Natural-language query endpoint, backed by a local Llama 3.1 model
+    (served via Ollama — see llm.py).
+
+    Translates the investigator's question into Cypher, runs it against
+    the graph, and returns a plain-English explanation alongside the
+    raw result rows and the generated query (for transparency/audit).
+
+    This always returns HTTP 200 on a handled failure (e.g. Ollama is
+    down, or the question couldn't be safely translated) — check the
+    "error" field in the response rather than relying on status codes,
+    since a partial answer is still useful to show the investigator.
+    """
+    return ask_question(body.question.strip())
