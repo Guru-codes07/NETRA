@@ -8,11 +8,17 @@ Keeps a single shared driver instance for the whole FastAPI app,
 opened at startup and closed at shutdown (see main.py lifespan).
 """
 
+import os
+
 from neo4j import GraphDatabase
 
-NEO4J_URI = "bolt://localhost:7687"
-NEO4J_USER = "neo4j"
-NEO4J_PASSWORD = "password123"
+# Reads from environment when set (e.g. inside Docker Compose, where the
+# hostname is the service name "neo4j" instead of "localhost"). Falls back
+# to the original local-dev defaults so nothing breaks for anyone still
+# running Neo4j directly on their machine.
+NEO4J_URI = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER = os.environ.get("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "password123")
 
 _driver = None
 
