@@ -1,1 +1,102 @@
+# NETRA — one-command local stack.
+#
+#   docker-compose up --build
+#
+# Brings up: Neo4j (graph DB) -> loads the synthetic CSVs -> Ollama
+# (pulls + serves Llama 3.1 8B) -> FastAPI backend on :8000.
+#
+# The frontend is NOT included here on purpose — run it with
+# `npm run dev` from Prototype/Frontend as usual, pointing at
+# http://localhost:8000. Keeping it outside Compose means you get
+# Vite's hot-reload while developing instead of rebuilding a container
+# on every UI change.
+#
+# First run will be slow (pulling the neo4j/ollama images + the
+# ~4.7GB Llama model). Subsequent `docker-compose up` runs are fast.
 
+services:
+
+  neo4j:
+    image: neo4j:5.24
+    container_name: netra-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/password123
+    ports:
+      - "7474:7474"   # Neo4j browser UI
+      - "7687:7687"   # bolt protocol
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # One-shot job: loads the CSVs in Prototype/Data into Neo4j, then exits.
+  # Re-running docker-compose up will re-run this too; load_to_neo4j.py
+  # uses MERGE so it's safe to run more than once.
+  loader:
+    image: python:3.11-slim
+    container_name: netra-loader
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    working_dir: /app/Prototype/Data
+    volumes:
+      - ./Prototype:/app/Prototype
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: password123
+    command: >
+      sh -c "pip install --no-cache-dir neo4j --quiet &&
+             python ../Graph/load_to_neo4j.py"
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: netra-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # GPU acceleration (optional): uncomment if your machine has an
+    # NVIDIA GPU + nvidia-container-toolkit installed. Runs fine on
+    # CPU without this, just slower per-answer.
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # One-shot job: pulls llama3.1:8b into the ollama service on first run.
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: netra-ollama-pull
+    depends_on:
+      - ollama
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["sh", "-c", "sleep 3 && ollama pull llama3.1:8b"]
+
+  backend:
+    build: ./Prototype/Backend
+    container_name: netra-backend
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: password123
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: llama3.1:8b
+
+volumes:
+  neo4j_data:
+  ollama_data:
