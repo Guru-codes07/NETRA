@@ -57,7 +57,7 @@ services:
     image: ollama/ollama:latest
     container_name: netra-ollama
     ports:
-      - "11434:11434"
+      - "11435:11435"
     volumes:
       - ollama_data:/root/.ollama
     healthcheck:
