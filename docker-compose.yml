@@ -41,7 +41,7 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
-    working_dir: /app/Prototype/Data
+    working_dir: /app
     volumes:
       - ./Prototype:/app/Prototype
     environment:
@@ -50,6 +50,7 @@ services:
       NEO4J_PASSWORD: password123
     command: >
       sh -c "pip install --no-cache-dir neo4j --quiet &&
+             cd Prototype/Data &&
              python ../Graph/load_to_neo4j.py"
 
   ollama:
@@ -59,6 +60,11 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
     # GPU acceleration (optional): uncomment if your machine has an
     # NVIDIA GPU + nvidia-container-toolkit installed. Runs fine on
     # CPU without this, just slower per-answer.
@@ -75,10 +81,11 @@ services:
     image: ollama/ollama:latest
     container_name: netra-ollama-pull
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     environment:
       OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["sh", "-c", "sleep 3 && ollama pull llama3.1:8b"]
+    command: ollama pull llama3.1:8b
 
   backend:
     build: ./Prototype/Backend
@@ -86,16 +93,21 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
-      ollama-pull:
-        condition: service_completed_successfully
+      ollama:
+        condition: service_healthy
     ports:
       - "8000:8000"
     environment:
       NEO4J_URI: bolt://neo4j:7687
       NEO4J_USER: neo4j
       NEO4J_PASSWORD: password123
-      OLLAMA_HOST: http://ollama:11435
+      OLLAMA_HOST: http://ollama:11434
       OLLAMA_MODEL: llama3.1:8b
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   neo4j_data:
