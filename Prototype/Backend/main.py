@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field
 from db import run_raw, run_query, close_driver
 from graph_utils import GraphAccumulator
 from llm import ask_question
+from risk import compute_all_risk_scores, get_person_risk
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Driver is created lazily on first use (see db.get_driver),
@@ -183,3 +184,37 @@ def ask(body: AskRequest):
     since a partial answer is still useful to show the investigator.
     """
     return ask_question(body.question.strip())
+
+
+@app.post("/risk/precompute")
+def precompute_risk():
+    """
+    Recompute risk scores for every person in the graph and persist them
+    onto each Person node (risk_score 0-100, risk_level High/Medium/Low).
+
+    Call this once after loading/changing data, or whenever you want
+    scores refreshed. Every other endpoint that returns Person nodes
+    (e.g. /person/{id}, /person/{id}/network) will include risk_score
+    and risk_level automatically afterwards, since they're now plain
+    properties on the node — nothing else needs to change on the
+    frontend to pick them up.
+    """
+    results = compute_all_risk_scores()
+    return {
+        "scored_count": len(results),
+        "top_5_highest_risk": results[:5],
+    }
+
+
+@app.get("/risk/{person_id}")
+def get_risk(person_id: str):
+    """
+    On-demand risk score for a single person. Recomputes scores across
+    the whole graph (cheap at this scale) so the result stays consistent
+    with /risk/precompute, then returns just this person's entry — useful
+    right after selecting a node, without waiting for a full precompute.
+    """
+    result = get_person_risk(person_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"Person '{person_id}' not found")
+    return result
