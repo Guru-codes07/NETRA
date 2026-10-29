@@ -1,1 +1,123 @@
+/* Case view — two-column layout, matches NETRA's existing palette
+   (navy #0B2A4A header, blue #0070C0 accents, white panels). Append this
+   to the bottom of App.css. */
 
+.cases-page {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cases-list-col {
+  width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid #DCE4EC;
+  padding: 16px;
+  overflow-y: auto;
+  background: #F7F9FB;
+}
+
+.cases-list-col h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: #0B2A4A;
+}
+
+.cases-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cases-list-item {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.cases-list-item:hover {
+  border-color: #0070C0;
+}
+
+.cases-list-item.active {
+  border-color: #0070C0;
+  background: #EAF3FB;
+}
+
+.cases-list-id {
+  font-size: 11px;
+  font-weight: bold;
+  color: #0070C0;
+  letter-spacing: 0.3px;
+}
+
+.cases-list-desc {
+  font-size: 13px;
+  color: #1a1a1a;
+  margin: 4px 0;
+}
+
+.cases-list-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #8a97a5;
+}
+
+.cases-detail-col {
+  flex: 1;
+  padding: 24px 32px;
+  overflow-y: auto;
+}
+
+.cases-detail-col h2 {
+  margin: 0 0 4px;
+  color: #0B2A4A;
+}
+
+.cases-detail-col h3 {
+  margin: 24px 0 8px;
+  font-size: 14px;
+  color: #0B2A4A;
+}
+
+.cases-detail-desc {
+  font-size: 14px;
+  color: #333;
+  margin: 8px 0 2px;
+}
+
+.cases-evidence-note {
+  font-size: 11px;
+  font-style: italic;
+  margin: -4px 0 10px;
+}
+
+/* View-switcher in the topbar */
+.view-switcher {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.view-switcher button {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  color: #B8CCE0;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-switcher button.active {
+  background: #0070C0;
+  color: #ffffff;
+}
