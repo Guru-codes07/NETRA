@@ -1,1 +1,32 @@
+/* Watchlist — append to the bottom of App.css. Matches NETRA's existing
+   palette; gold is used here specifically so it reads as "flagged" and
+   doesn't collide with the red/orange/green risk-level colors already
+   used elsewhere on Person nodes. */
 
+.watchlist-star {
+  color: #E8A33D;
+  margin-right: 4px;
+}
+
+.watchlist-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 7px 0;
+  border: 1px solid #E8A33D;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #B9770E;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.watchlist-btn:hover {
+  background: #FDF3E3;
+}
+
+.watchlist-btn.active {
+  background: #E8A33D;
+  color: #ffffff;
+  border-color: #E8A33D;
+}
