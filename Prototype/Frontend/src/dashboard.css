@@ -1,1 +1,106 @@
+/* Dashboard — append to the bottom of App.css. Matches NETRA's existing
+   palette (navy #0B2A4A, blue #0070C0, risk colors already defined
+   elsewhere for .risk-high/.risk-medium/.risk-low). */
 
+.dashboard-page {
+  padding: 24px 32px;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.dashboard-page h2 {
+  margin: 0 0 16px;
+  color: #0B2A4A;
+}
+
+.dashboard-page h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #0B2A4A;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.dashboard-stat-card {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+
+.dashboard-stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0070C0;
+}
+
+.dashboard-stat-label {
+  font-size: 11px;
+  color: #8a97a5;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.dashboard-col {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Risk distribution bar chart */
+.risk-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.risk-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.risk-bar-label {
+  width: 56px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.risk-bar-track {
+  flex: 1;
+  height: 10px;
+  background: #F2F5F8;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.risk-bar-fill-high { background: #C0392B; }
+.risk-bar-fill-medium { background: #E8A33D; }
+.risk-bar-fill-low { background: #1E7A3C; }
+
+.risk-bar-count {
+  width: 24px;
+  text-align: right;
+  font-size: 12px;
+  color: #425266;
+}
