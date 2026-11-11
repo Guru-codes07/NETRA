@@ -124,4 +124,4 @@ NETRA is a working prototype over **synthetic** data, built to explore graph-bas
 ---
 
 ## License
-
+This Project is under the MIT Licnese.
