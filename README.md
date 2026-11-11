@@ -125,4 +125,3 @@ NETRA is a working prototype over **synthetic** data, built to explore graph-bas
 
 ## License
 
-Personal project — no license specified yet.
