@@ -1,1 +1,760 @@
+* {
+  box-sizing: border-box;
+}
 
+body, html, #root {
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px;
+  background: #0B2A4A;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #B8CCE0;
+}
+
+.search-form {
+  display: flex;
+  gap: 6px;
+}
+
+.search-form input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  width: 220px;
+}
+
+.search-form button,
+.detect-btn {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  background: #0070C0;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.detect-btn:disabled {
+  background: #5a7fa0;
+  cursor: not-allowed;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 320px;
+  padding: 16px;
+  background: #F4F6F8;
+  overflow-y: auto;
+  border-right: 1px solid #DDE3E9;
+}
+
+.panel {
+  background: white;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid #E2E8EF;
+}
+
+.panel h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #0B2A4A;
+}
+
+.insight-panel {
+  background: #EAF3FC;
+  border-color: #0070C0;
+}
+
+.insight-headline {
+  font-weight: bold;
+  margin: 0 0 6px;
+}
+
+.insight-text {
+  font-size: 13px;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.insight-tag {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  color: #0070C0;
+  margin: 0;
+}
+
+.risk-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+.risk-high {
+  background: #FBEAE8;
+  color: #C0392B;
+}
+
+.risk-medium {
+  background: #FDF3E3;
+  color: #B9770E;
+}
+
+.risk-low {
+  background: #E8F5EC;
+  color: #1E7A3C;
+}
+
+/* Node detail sidebar — generic property list for any entity type */
+.detail-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border-top: 1px solid #eee;
+}
+
+.detail-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+}
+
+.detail-key {
+  color: #888;
+  text-transform: capitalize;
+}
+
+.detail-value {
+  color: #1a1a1a;
+  font-weight: 500;
+  text-align: right;
+  word-break: break-word;
+}
+
+.timeline-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 7px 0;
+  background: #0070C0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.timeline-btn:hover {
+  background: #005A99;
+}
+
+/* Timeline panel */
+.panel-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+
+.panel-close:hover {
+  color: #C0392B;
+}
+
+.timeline-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.timeline-icon {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.timeline-body {
+  flex: 1;
+}
+
+.timeline-main {
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.timeline-timestamp {
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.timeline-call .timeline-main { color: #0B2A4A; }
+.timeline-transaction .timeline-main { color: #1E7A3C; }
+
+.result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.result-list li {
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.result-list li:hover {
+  background: #EAF3FC;
+}
+
+.result-list li span {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.muted-panel {
+  color: #6b7280;
+  font-size: 13px;
+  background: transparent;
+  border: 1px dashed #C9D4DE;
+}
+
+.error-box {
+  background: #FCEAEA;
+  border: 1px solid #B03A2E;
+  color: #B03A2E;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.graph-area {
+  flex: 1;
+  position: relative;
+  padding: 12px;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+/* Notes & annotations — append to the bottom of App.css. */
+
+.notes-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 14px;
+}
+
+.notes-form textarea {
+  resize: vertical;
+  border: 1px solid #DCE4EC;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #1a1a1a;
+}
+
+.notes-form textarea:focus {
+  outline: none;
+  border-color: #0070C0;
+}
+
+.notes-form button {
+  align-self: flex-end;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 5px;
+  background: #0070C0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.notes-form button:disabled {
+  background: #C7D3DD;
+  cursor: not-allowed;
+}
+
+.notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notes-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 0;
+}
+
+.notes-text {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #1a1a1a;
+  white-space: pre-wrap;
+}
+
+.notes-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #9aa7b5;
+}
+
+.notes-delete {
+  background: none;
+  border: none;
+  color: #C0392B;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.notes-delete:hover {
+  text-decoration: underline;
+}
+
+/* Dashboard — append to the bottom of App.css. Matches NETRA's existing
+   palette (navy #0B2A4A, blue #0070C0, risk colors already defined
+   elsewhere for .risk-high/.risk-medium/.risk-low). */
+
+.dashboard-page {
+  padding: 24px 32px;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.dashboard-page h2 {
+  margin: 0 0 16px;
+  color: #0B2A4A;
+}
+
+.dashboard-page h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #0B2A4A;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.dashboard-stat-card {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+
+.dashboard-stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0070C0;
+}
+
+.dashboard-stat-label {
+  font-size: 11px;
+  color: #8a97a5;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.dashboard-col {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Risk distribution bar chart */
+.risk-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.risk-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.risk-bar-label {
+  width: 56px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.risk-bar-track {
+  flex: 1;
+  height: 10px;
+  background: #F2F5F8;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.risk-bar-fill-high { background: #C0392B; }
+.risk-bar-fill-medium { background: #E8A33D; }
+.risk-bar-fill-low { background: #1E7A3C; }
+
+.risk-bar-count {
+  width: 24px;
+  text-align: right;
+  font-size: 12px;
+  color: #425266;
+}
+
+/* Watchlist — append to the bottom of App.css. Matches NETRA's existing
+   palette; gold is used here specifically so it reads as "flagged" and
+   doesn't collide with the red/orange/green risk-level colors already
+   used elsewhere on Person nodes. */
+
+.watchlist-star {
+  color: #E8A33D;
+  margin-right: 4px;
+}
+
+.watchlist-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 7px 0;
+  border: 1px solid #E8A33D;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #B9770E;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.watchlist-btn:hover {
+  background: #FDF3E3;
+}
+
+.watchlist-btn.active {
+  background: #E8A33D;
+  color: #ffffff;
+  border-color: #E8A33D;
+}
+
+/* Case view — two-column layout, matches NETRA's existing palette
+   (navy #0B2A4A header, blue #0070C0 accents, white panels). Append this
+   to the bottom of App.css. */
+
+.cases-page {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cases-list-col {
+  width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid #DCE4EC;
+  padding: 16px;
+  overflow-y: auto;
+  background: #F7F9FB;
+}
+
+.cases-list-col h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: #0B2A4A;
+}
+
+.cases-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cases-list-item {
+  background: #ffffff;
+  border: 1px solid #DCE4EC;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.cases-list-item:hover {
+  border-color: #0070C0;
+}
+
+.cases-list-item.active {
+  border-color: #0070C0;
+  background: #EAF3FB;
+}
+
+.cases-list-id {
+  font-size: 11px;
+  font-weight: bold;
+  color: #0070C0;
+  letter-spacing: 0.3px;
+}
+
+.cases-list-desc {
+  font-size: 13px;
+  color: #1a1a1a;
+  margin: 4px 0;
+}
+
+.cases-list-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #8a97a5;
+}
+
+.cases-detail-col {
+  flex: 1;
+  padding: 24px 32px;
+  overflow-y: auto;
+}
+
+.cases-detail-col h2 {
+  margin: 0 0 4px;
+  color: #0B2A4A;
+}
+
+.cases-detail-col h3 {
+  margin: 24px 0 8px;
+  font-size: 14px;
+  color: #0B2A4A;
+}
+
+.cases-detail-desc {
+  font-size: 14px;
+  color: #333;
+  margin: 8px 0 2px;
+}
+
+.cases-evidence-note {
+  font-size: 11px;
+  font-style: italic;
+  margin: -4px 0 10px;
+}
+
+/* View-switcher in the topbar */
+.view-switcher {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.view-switcher button {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  color: #B8CCE0;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-switcher button.active {
+  background: #0070C0;
+  color: #ffffff;
+}
+
+/* .cases-page / .dashboard-page sit as direct siblings of .body inside
+   the flex-column .app-shell, same as .body itself — need the same
+   flex:1 + min-height:0 treatment so they fill the remaining height
+   under the topbar instead of collapsing to their content size. */
+.cases-page,
+.dashboard-page {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Find Path panel — sits in the sidebar under the selected person */
+.path-panel .path-from {
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.path-search {
+  display: flex;
+  gap: 6px;
+}
+
+.path-search input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #DCE4EC;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.path-search input:focus {
+  outline: none;
+  border-color: #0070C0;
+}
+
+.path-search button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background: #0070C0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.path-search button:disabled {
+  background: #C7D3DD;
+  cursor: not-allowed;
+}
+
+.path-matches {
+  margin-top: 8px;
+}
+
+.path-result {
+  margin-top: 12px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.path-headline {
+  font-size: 12px;
+  color: #0B2A4A;
+  margin: 0 0 8px;
+}
+
+.path-steps {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 12px;
+}
+
+.path-steps li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.path-node {
+  color: #1a1a1a;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.path-rel {
+  color: #0070C0;
+  font-size: 11px;
+  margin: 0 4px;
+}
+
+.path-clear {
+  background: none;
+  border: 1px solid #DCE4EC;
+  border-radius: 5px;
+  color: #425266;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.path-clear:hover {
+  border-color: #0070C0;
+  color: #0070C0;
+}
